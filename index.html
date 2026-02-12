@@ -69,12 +69,23 @@
       flex-direction: column;
       gap: 4px;
       cursor: pointer;
+      z-index: 1001;
     }
     .hamburger span{
       width: 25px;
       height: 3px;
       background: white;
       border-radius: 3px;
+      transition: 0.3s;
+    }
+    .hamburger.active span:nth-child(1){
+      transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2){
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3){
+      transform: translateY(-7px) rotate(-45deg);
     }
 
     /* MOBILE MENU */
@@ -83,15 +94,23 @@
       flex-direction: column;
       background: var(--dark);
       padding: 10px 5%;
-      position: absolute;
+      position: fixed;
       top: 60px;
       width: 100%;
       left: 0;
       z-index: 999;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
     .mobile-menu a{
-      padding: 10px 0;
+      padding: 12px 0;
+      color: white;
+      text-decoration: none;
       border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 16px;
+    }
+    .mobile-menu a:hover{
+      color: var(--gold);
     }
 
     /* PAGE SYSTEM */
@@ -123,6 +142,8 @@
     .hero h1{
       font-size: 3.5rem;
       margin-bottom: 10px;
+      letter-spacing: 3px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
     /* CONTAINER */
@@ -168,8 +189,7 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .card h4{
-      cursor: pointer;
+    .card h3{
       margin: 10px 0;
     }
 
@@ -188,6 +208,22 @@
     .btn:hover{
       background: var(--gold);
       color: var(--dark);
+    }
+
+    /* FILTER BAR */
+    .filter-bar{
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .filter-bar input{
+      width: 200px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
     }
 
     /* PRODUCT DETAILS */
@@ -337,8 +373,14 @@
 
 <section id="shop" class="page">
   <div class="container">
-    <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 30px; flex-wrap: wrap;">
+    <div class="filter-bar">
       <h2 id="shop-title">All Products</h2>
+
+      <!-- Search + Filter -->
+      <input id="searchInput" type="text" placeholder="Search product..." oninput="applyFilters()">
+      <input id="minPrice" type="number" placeholder="Min price" oninput="applyFilters()">
+      <input id="maxPrice" type="number" placeholder="Max price" oninput="applyFilters()">
+
       <select style="width: 220px; padding: 10px;" onchange="loadShopByCategory(this.value)">
         <option value="All">All Categories</option>
         <option value="Men">Men</option>
@@ -347,6 +389,7 @@
         <option value="Jewelry">Jewelry</option>
       </select>
     </div>
+
     <div id="product-list" class="grid"></div>
   </div>
 </section>
@@ -453,6 +496,7 @@
   const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   let cart = JSON.parse(localStorage.getItem('noor_cart')) || [];
+  let productsData = [];
 
   function showPage(pageId){
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -470,7 +514,9 @@
 
   function toggleMenu(){
     const menu = document.getElementById('mobileMenu');
+    const ham = document.querySelector('.hamburger');
     menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    ham.classList.toggle('active');
   }
 
   async function loadShopByCategory(cat){
@@ -497,6 +543,12 @@
       return;
     }
 
+    productsData = data;
+    renderProducts(productsData);
+  }
+
+  function renderProducts(data){
+    const container = document.getElementById('product-list');
     container.innerHTML = data.map(p => `
       <div class="card">
         <img src="${SUPABASE_URL}/storage/v1/object/public/${PRODUCT_BUCKET}/${p.image_path}" onclick="showDetails('${p.id}')">
@@ -509,6 +561,21 @@
         </div>
       </div>
     `).join('');
+  }
+
+  function applyFilters(){
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const min = Number(document.getElementById('minPrice').value || 0);
+    const max = Number(document.getElementById('maxPrice').value || Infinity);
+
+    const filtered = productsData.filter(p => {
+      const name = p.name.toLowerCase();
+      const price = Number(p.price);
+
+      return name.includes(search) && price >= min && price <= max;
+    });
+
+    renderProducts(filtered);
   }
 
   async function showDetails(id){
