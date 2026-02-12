@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop | NOOR CENTER</title>
+<link rel="stylesheet" href="css/style.css">
+</head><body>
+<header class="header">
+  <div class="logo">NOOR CENTER</div>
+  <nav id="navMenu" class="nav">
+    <a href="index.html">Home</a>
+    <a class="active" href="shop.html">Shop</a>
+    <a href="contact.html">Contact</a>
+    <a href="cart.html">🛒 <span id="cartCount">0</span></a>
+  </nav>
+  <button class="hamburger" onclick="document.getElementById('navMenu').classList.toggle('show')">☰</button>
+</header>
+
+<section class="container">
+  <div class="toolbar">
+    <div class="search-wrapper">
+        <input id="searchBox" placeholder="Search luxury products...">
+    </div>
+   <select id="categorySelect">
+  <option value="all">All Categories</option>
+  <option value="Men">Men</option>
+  <option value="Women">Women</option>
+  <option value="Kids">Kids</option>
+  <option value="Jewelry">Jewelry</option>
+</select>
+  </div>
+
+  <div id="productList" class="grid products"></div>
+</section>
+
+<a class="whatsapp" href="https://wa.me/923001234567" target="_blank">💬</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/products.js"></script>
+<script>
+  // Update cart count on load
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
+</script>
+</body></html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product Details | NOOR CENTER</title>
+<link rel="stylesheet" href="css/style.css">
+</head><body>
+
+<header class="header">
+  <div class="logo">NOOR CENTER</div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">🛒 Cart</a>
+  </nav>
+</header>
+
+<section class="container">
+  <a href="shop.html" style="text-decoration:none; color:var(--gold); font-weight:bold;">← Back to Shop</a>
+  
+  <div id="productDetail">
+      <p style="text-align:center; padding:50px;">Loading luxury product details...</p>
+  </div>
+</section>
+
+<footer class="footer" style="background:var(--dark); color:white; text-align:center; padding:20px; margin-top:50px;">
+  <p>© 2026 NOOR CENTER</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module">
+    import { loadProductDetail } from './js/products.js';
+    // Load detail as soon as page opens
+    window.onload = loadProductDetail;
+</script>
+</body></html>

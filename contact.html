@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | NOOR CENTER</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+    .map-container { width: 100%; height: 300px; margin-top: 20px; border-radius: 10px; overflow: hidden; border: 1px solid #ddd; }
+    iframe { width: 100%; height: 100%; border: 0; }
+</style>
+</head><body>
+<header class="header">
+  <div class="logo">NOOR CENTER</div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+<a href="contact.html" class="active">Contact</a>
+  </nav>
+</header>
+<section class="container grid halves">
+ <div class="box">
+  <h3>Our Address</h3>
+  <p>Sarai Sidhu Road, Near Green Market, Choperhatta, Kabirwala (Khanewal)</p>
+  <div style="width: 100%; height: 300px; margin-top: 20px; border-radius: 10px; overflow: hidden; border: 1px solid #ddd;">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13778.681640625!2d71.8690!3d30.4045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x393b4f6e1f000001%3A0x7b1b1b1b1b1b1b1b!2sKabirwala%2C%20Khanewal%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000" 
+      width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+    </iframe>
+  </div>
+</div>
+  <div class="box">
+    <h3>Contact Us</h3>
+    <form id="contactForm">
+      <input name="name" placeholder="Your Name" required>
+      <input name="email" placeholder="Email" required>
+      <input name="phone" placeholder="Phone" required>
+      <textarea name="message" placeholder="Message" required></textarea>
+      <button class="btn" type="submit">Send Message</button>
+      <p id="contactMsg"></p>
+    </form>
+  </div>
+</section>
+<footer class="footer">
+  <p>© 2026 NOOR CENTER</p>
+  
+</footer>
+<script type="module" src="js/supabase.js"></script>
+<script type="module" src="js/contact.js"></script>
+</body></html>
