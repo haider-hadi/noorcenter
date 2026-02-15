@@ -415,6 +415,65 @@ form textarea{
   border-radius: 8px;
   margin-top: 12px;
 }
+/* ===== MOBILE LUXURY COMPACT LAYOUT ===== */
+@media (max-width: 600px) {
+  /* Reduce container padding for more screen real estate */
+  .container {
+    padding: 20px 10px;
+    margin: 10px auto;
+  }
+
+  /* Force 2 columns for that "Draz" small card look */
+  .grid.thirds, 
+  .grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px; /* Tighter gap between small cards */
+  }
+
+  /* Compact Card Styling */
+  .card {
+    border-radius: 8px; /* Slightly sharper for small cards */
+  }
+
+  .card img {
+    height: 140px; /* Smaller fixed height for mobile tiles */
+  }
+
+  .card-body {
+    padding: 10px; /* Reduce padding inside the card */
+  }
+
+  .card h3 {
+    font-size: 14px; /* Smaller titles */
+    margin: 5px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card p {
+    font-size: 11px; /* Smaller description */
+    margin-bottom: 8px;
+  }
+
+  /* Make button smaller to fit the card */
+  .btn {
+    padding: 8px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+  }
+
+  /* Shrink Hero height on mobile to keep focus on categories */
+  .hero {
+    height: 40vh;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+}
+
 
 .btn:hover{
   background: var(--gold);
